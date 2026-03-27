@@ -1,5 +1,4 @@
 import { useState, useRef, useCallback, useEffect } from "react"
-import { RalphWiggum } from "@/components/RalphWiggum"
 import { Button } from "@/components/ui/button"
 import {
   Select,
@@ -36,17 +35,17 @@ function getStyles(
   const base: React.CSSProperties = {
     position: "relative",
     display: "block",
-    width: "40px",
-    height: "40px",
+    width: "80px",
+    height: "45px",
   }
 
   switch (effect) {
     case "left":
-      return { ...base, left: active ? "calc(100% - 40px)" : "0px" }
+      return { ...base, left: active ? "calc(100% - 80px)" : "0px" }
     case "width":
-      return { ...base, width: active ? "100%" : "40px" }
+      return { ...base, width: active ? "100%" : "80px" }
     case "height":
-      return { ...base, height: active ? "80px" : "40px" }
+      return { ...base, height: active ? "90px" : "45px" }
     case "opacity":
       return { ...base, opacity: active ? 1 : 0.15 }
     case "scale":
@@ -96,6 +95,7 @@ export function AnimationPreview({
   const [roundTrip, setRoundTrip] = useState(true)
   const [skipTransition, setSkipTransition] = useState(false)
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>(null)
+  const prevPointsRef = useRef<BezierControlPoints | null>(null)
 
   const { p1, p2 } = controlPoints
   const bezier = `cubic-bezier(${p1.x}, ${p1.y}, ${p2.x}, ${p2.y})`
@@ -141,6 +141,18 @@ export function AnimationPreview({
       if (timeoutRef.current) clearTimeout(timeoutRef.current)
     }
   }, [])
+
+  const playRef = useRef(play)
+  useEffect(() => { playRef.current = play }, [play])
+
+  useEffect(() => {
+    if (prevPointsRef.current === null) {
+      prevPointsRef.current = controlPoints
+      return
+    }
+    prevPointsRef.current = controlPoints
+    playRef.current()
+  }, [controlPoints, selectedEffect])
 
   return (
     <div className="space-y-3">
@@ -193,11 +205,19 @@ export function AnimationPreview({
         </Label>
       </div>
 
-      <div className="relative h-24 overflow-hidden rounded-lg border border-border bg-muted/30 p-4 flex items-center">
-        <RalphWiggum
+      <div
+        className="relative h-32 overflow-hidden rounded-lg border border-dashed border-border bg-muted/30 p-4 flex items-center"
+        style={{
+          backgroundImage: `linear-gradient(to right, rgb(128 128 128 / 0.15) 1px, transparent 1px), linear-gradient(to bottom, rgb(128 128 128 / 0.15) 1px, transparent 1px)`,
+          backgroundSize: "20px 20px",
+        }}
+      >
+        <div
           style={{
             ...getStyles(selectedEffect, active),
             transition: skipTransition ? "none" : `${prop} ${duration}ms ${bezier}`,
+            backgroundColor: "#22c55e",
+            borderRadius: "6px",
           }}
         />
       </div>

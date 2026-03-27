@@ -15,15 +15,14 @@ const OPTIONS: { value: Theme; icon: React.ElementType; label: string }[] = [
   { value: "dark", icon: Moon, label: "Dark" },
 ]
 
-const ICONS: Record<Theme, React.ElementType> = {
+const ICONS: Record<"light" | "dark", React.ElementType> = {
   light: Sun,
-  system: Monitor,
   dark: Moon,
 }
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme()
-  const ActiveIcon = ICONS[theme]
+  const { theme, resolvedTheme, setTheme } = useTheme()
+  const ActiveIcon = ICONS[resolvedTheme]
 
   return (
     <DropdownMenu>

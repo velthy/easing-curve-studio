@@ -6,7 +6,12 @@
       "Bash(cp /Users/velthy/Development/personal/css-easing-temp/.gitignore /Users/velthy/Development/personal/css-easing/)",
       "Bash(rm -rf /Users/velthy/Development/personal/css-easing-temp)",
       "Bash(npm install:*)",
-      "Bash(npx shadcn@latest init -d)"
+      "Bash(npx shadcn@latest init -d)",
+      "Bash(npx shadcn@latest add button card select slider input label dropdown-menu tooltip separator -y)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(npx tsc:*)",
+      "Bash(npm run:*)",
+      "Bash(gh repo:*)"
     ]
   }
 }
