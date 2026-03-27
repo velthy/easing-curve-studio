@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create:*)",
+      "Bash(cp -r /Users/velthy/Development/personal/css-easing-temp/* /Users/velthy/Development/personal/css-easing/)",
+      "Bash(cp /Users/velthy/Development/personal/css-easing-temp/.gitignore /Users/velthy/Development/personal/css-easing/)",
+      "Bash(rm -rf /Users/velthy/Development/personal/css-easing-temp)",
+      "Bash(npm install:*)",
+      "Bash(npx shadcn@latest init -d)"
+    ]
+  }
+}
