@@ -95,7 +95,6 @@ export function AnimationPreview({
   const [roundTrip, setRoundTrip] = useState(true)
   const [skipTransition, setSkipTransition] = useState(false)
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>(null)
-  const prevPointsRef = useRef<BezierControlPoints | null>(null)
 
   const { p1, p2 } = controlPoints
   const bezier = `cubic-bezier(${p1.x}, ${p1.y}, ${p2.x}, ${p2.y})`
@@ -141,18 +140,6 @@ export function AnimationPreview({
       if (timeoutRef.current) clearTimeout(timeoutRef.current)
     }
   }, [])
-
-  const playRef = useRef(play)
-  useEffect(() => { playRef.current = play }, [play])
-
-  useEffect(() => {
-    if (prevPointsRef.current === null) {
-      prevPointsRef.current = controlPoints
-      return
-    }
-    prevPointsRef.current = controlPoints
-    playRef.current()
-  }, [controlPoints, selectedEffect])
 
   return (
     <div className="space-y-3">
